@@ -5,11 +5,14 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Load environment variables from .env file (only for local development)
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+
+# Configure CORS to allow requests from your frontend's origin
+# If frontend is hosted elsewhere, update the origin accordingly
+CORS(app, resources={r"/get_tracks": {"origins": "*"}})  # Using '*' for all origins; adjust as needed
 
 # Spotify API credentials from environment variables
 CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
@@ -60,4 +63,5 @@ def get_tracks():
         return jsonify({'error': f'Unexpected Error: {str(e)}'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # In production, it's recommended to use a production-ready server like Gunicorn
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
