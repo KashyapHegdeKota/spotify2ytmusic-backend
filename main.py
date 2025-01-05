@@ -22,6 +22,10 @@ CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 client_credentials_manager = SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
+@app.route('/test', methods=['GET'])
+def test():
+    return jsonify({"message": "Test successful"}), 200
+
 @app.route('/get_tracks', methods=['POST'])
 def get_tracks():
     """
