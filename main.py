@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 # Configure CORS to allow requests from your frontend's origin
 # If frontend is hosted elsewhere, update the origin accordingly
-CORS(app, resources={r"/get_tracks": {"origins": "*"}})  # Using '*' for all origins; adjust as needed
+CORS(app)  # Using '*' for all origins; adjust as needed
 
 # Spotify API credentials from environment variables
 CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
